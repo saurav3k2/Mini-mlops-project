@@ -19,6 +19,9 @@ jobs:
           pip install -r requirements.txt
 
       - name: run Pipeline
+        env:
+            DAGSHUB_PAT: ${{ secrets.DAGSHUB_PAT }}
+
         run: |
           dvc repro
 
