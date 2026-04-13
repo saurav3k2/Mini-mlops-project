@@ -51,6 +51,6 @@ jobs:
         env: 
             DAGSHUB_PAT: ${{ secrets.DAGSHUB_PAT }}
         run: |
-          python -m unittest tests/test_flask_appp.py
+          python -m unittest tests/test_flask_app.py
 
 
