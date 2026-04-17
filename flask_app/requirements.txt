@@ -4,3 +4,7 @@ nltk==3.8.1
 numpy==1.26.4
 pandas==2.2.2
 gunicorn
+cloudpickle==3.0.0
+psutil==6.0.0
+scikit-learn==1.8.0
+scipy==1.14.0
