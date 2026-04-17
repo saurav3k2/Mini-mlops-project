@@ -88,10 +88,10 @@ app = Flask(__name__)
 # load model from model registry
 def get_latest_model_version(model_name):
     client = mlflow.MlflowClient()
-    latest_version = client.get_latest_versions(model_name, stages=["Production"])
-    if not latest_version:
-        latest_version = client.get_latest_versions(model_name, stages=["None"])
-    return latest_version[0].version if latest_version else None
+    # search_model_versions is the recommended replacement for get_latest_versions(stages)
+    versions = client.search_model_versions(f"name='{model_name}'")
+    production_versions = [v for v in versions if v.current_stage == "Production"]
+    return production_versions[0].version if production_versions else (versions[0].version if versions else None)
 
 model_name = "my_model"
 model_version = get_latest_model_version(model_name)
@@ -117,7 +117,6 @@ def predict():
     features = vectorizer.transform([text])
 
     # Convert sparse matrix to DataFrame
-    features_df = pd.DataFrame.sparse.from_spmatrix(features)
     features_df = pd.DataFrame(features.toarray(), columns=[str(i) for i in range(features.shape[1])])
 
     # prediction
