@@ -86,7 +86,7 @@ jobs:
             aws configure set default.region ap-southeast-2
             aws ecr get-login-password --region ap-southeast-2 | docker login --username AWS --password-stdin 278371787118.dkr.ecr.ap-southeast-2.amazonaws.com 
 
-            docker pull 278371787118.dkr.ecr.ap-southeast-2.amazonaws.com/campusx_ecr:latest
+            docker pull 278371787118.dkr.ecr.ap-southeast-2.amazonaws.com/emotion_ecr:latest
             docker stop my-app || true
             docker rm my-app || true
-            docker run -d -p 80:5000 -e DAGSHUB_PAT=${{ secrets.DAGSHUB_PAT }} --name emotion-app 278371787118.dkr.ecr.ap-southeast-2.amazonaws.com/campusx_ecr:latest
+            docker run -d -p 80:5000 -e DAGSHUB_PAT=${{ secrets.DAGSHUB_PAT }} --name emotion-app 278371787118.dkr.ecr.ap-southeast-2.amazonaws.com/emotion_ecr:latest
